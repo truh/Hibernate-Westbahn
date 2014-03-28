@@ -1,0 +1,15 @@
+# IntelliJ idea #
+.idea/
+*.iml
+
+# artifacts #
+build/
+out/
+
+# Eclipse #
+.classpath
+.project
+
+# more stuff #
+javatutorial6.pdf
+*.astah.lock
