@@ -6,10 +6,13 @@
 build/
 out/
 
+# Libraries #
+lib/
+
 # Eclipse #
 .classpath
 .project
 
 # more stuff #
-javatutorial6.pdf
-*.astah.lock
+javaeetutorial6.pdf
+Westbahn.asta.lock
