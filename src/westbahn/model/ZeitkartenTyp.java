@@ -1,3 +1,5 @@
+package westbahn.model;
+
 public enum ZeitkartenTyp {
 
 	;

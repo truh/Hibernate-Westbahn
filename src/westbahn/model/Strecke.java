@@ -1,3 +1,5 @@
+package westbahn.model;
+
 public class Strecke {
 
 	private Long ID;

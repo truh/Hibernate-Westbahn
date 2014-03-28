@@ -1,3 +1,5 @@
+package westbahn.model;
+
 import java.util.Date;
 
 public class Reservierung {
