@@ -5,6 +5,7 @@
 # artifacts #
 build/
 out/
+bin/
 
 # Libraries #
 lib/
