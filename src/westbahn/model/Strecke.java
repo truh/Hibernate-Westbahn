@@ -1,7 +1,10 @@
 package westbahn.model;
 
+import javax.persistence.*;
+
 public class Strecke {
 
+	@Id
 	private Long ID;
 
 	private Bahnhof start;
@@ -9,5 +12,44 @@ public class Strecke {
 	private Bahnhof bahnhof;
 
 	private Bahnhof ende;
+	
+	public Strecke()
+	{
+		
+	}
+
+	public Long getID() {
+		return ID;
+	}
+
+	public void setID(Long iD) {
+		ID = iD;
+	}
+
+	public Bahnhof getStart() {
+		return start;
+	}
+
+	public void setStart(Bahnhof start) {
+		this.start = start;
+	}
+
+	public Bahnhof getBahnhof() {
+		return bahnhof;
+	}
+
+	public void setBahnhof(Bahnhof bahnhof) {
+		this.bahnhof = bahnhof;
+	}
+
+	public Bahnhof getEnde() {
+		return ende;
+	}
+
+	public void setEnde(Bahnhof ende) {
+		this.ende = ende;
+	}
+	
+	
 
 }
