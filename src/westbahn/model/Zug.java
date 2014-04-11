@@ -3,6 +3,7 @@ package westbahn.model;
 import java.util.Date;
 import javax.persistence.*;
 
+@Entity
 public class Zug {
 
 	@Id
@@ -15,10 +16,17 @@ public class Zug {
 	private int fahrradStellplaetze = 50;
 
 	private int rollStuhlPlaetze = 10;
-
+	
+	@OneToOne(optional = false)
 	private Bahnhof start;
-
+	
+	@OneToOne(optional = false)
 	private Bahnhof ende;
+	
+	public Zug()
+	{
+		
+	}
 
 	public Long getID() {
 		return ID;
@@ -75,7 +83,4 @@ public class Zug {
 	public void setEnde(Bahnhof ende) {
 		this.ende = ende;
 	}
-	
-	
-
 }
