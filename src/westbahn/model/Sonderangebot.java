@@ -1,15 +1,10 @@
 package westbahn.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Collection;
 import java.util.Date;
+import javax.persistence.*;
 
-@Entity
 public class Sonderangebot {
-
-    @Id
+	@Id
 	private Long ID;
 
 	private int kontingent = 999;
@@ -20,54 +15,59 @@ public class Sonderangebot {
 
 	private float preisNachlass = 0.5f;
 
-    @OneToMany
-	private Collection<Ticket> tickets;
+	private Ticket tickets;
 
-    public Long getID() {
-        return ID;
-    }
+	
+	public Sonderangebot() {
+	}
 
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
+	public Long getID() {
+		return ID;
+	}
 
-    public int getKontingent() {
-        return kontingent;
-    }
+	public void setID(Long iD) {
+		ID = iD;
+	}
 
-    public void setKontingent(int kontingent) {
-        this.kontingent = kontingent;
-    }
+	public int getKontingent() {
+		return kontingent;
+	}
 
-    public Date getStartZeit() {
-        return startZeit;
-    }
+	public void setKontingent(int kontingent) {
+		this.kontingent = kontingent;
+	}
 
-    public void setStartZeit(Date startZeit) {
-        this.startZeit = startZeit;
-    }
+	public Date getStartZeit() {
+		return startZeit;
+	}
 
-    public int getDauer() {
-        return dauer;
-    }
+	public void setStartZeit(Date startZeit) {
+		this.startZeit = startZeit;
+	}
 
-    public void setDauer(int dauer) {
-        this.dauer = dauer;
-    }
+	public int getDauer() {
+		return dauer;
+	}
 
-    public float getPreisNachlass() {
-        return preisNachlass;
-    }
+	public void setDauer(int dauer) {
+		this.dauer = dauer;
+	}
 
-    public void setPreisNachlass(float preisNachlass) {
-        this.preisNachlass = preisNachlass;
-    }
+	public float getPreisNachlass() {
+		return preisNachlass;
+	}
 
-    public Collection<Ticket> getTickets() {
-        return tickets;
-    }
+	public void setPreisNachlass(float preisNachlass) {
+		this.preisNachlass = preisNachlass;
+	}
 
-    public void setTickets(Collection<Ticket> tickets) {
-        this.tickets = tickets;
-    }
+	public Ticket getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(Ticket tickets) {
+		this.tickets = tickets;
+	}
+	
+
 }
