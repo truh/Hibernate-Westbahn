@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
 @Entity
 public class Bahnhof {
 
@@ -14,7 +15,7 @@ public class Bahnhof {
     @Id
 	private Long ID;
 
-    @Column()
+    @Column(unique = true)
 	private String name;
 
 	private int absPreisEntfernung;
@@ -71,5 +72,10 @@ public class Bahnhof {
 
     public void setKopfBahnhof(boolean kopfBahnhof) {
         this.kopfBahnhof = kopfBahnhof;
+    }
+
+    public Long getGesamtPraemienMeilen() {
+        //TODO Do DO
+        return 0L;
     }
 }

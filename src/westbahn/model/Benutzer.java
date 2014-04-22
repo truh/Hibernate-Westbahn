@@ -1,7 +1,15 @@
 package westbahn.model;
 
-public class Benutzer {
+import javax.persistence.*;
+import java.util.Collection;
 
+@NamedQueries(value = {
+        @NamedQuery(name = "getAllReservations",
+                query = "SELECT b FROM benutzer WHERE b.eMail = :emailAddress ")
+})
+@Entity
+public class Benutzer {
+    @Id
 	private Long ID;
 
 	private String vorName;
@@ -16,9 +24,11 @@ public class Benutzer {
 
 	private Long verbuchtePraemienMeilen;
 
-	private Ticket tickets;
+    @OneToMany
+	private Collection<Ticket> tickets;
 
-	private Reservierung[] reservierungen;
+    @OneToMany(mappedBy = "benutzer")
+	private Collection<Reservierung> reservierungen;
 
     public Long getID() {
         return ID;
@@ -76,19 +86,19 @@ public class Benutzer {
         this.verbuchtePraemienMeilen = verbuchtePraemienMeilen;
     }
 
-    public Ticket getTickets() {
+    public Collection<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Ticket tickets) {
+    public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
     }
 
-    public Reservierung[] getReservierungen() {
+    public Collection<Reservierung> getReservierungen() {
         return reservierungen;
     }
 
-    public void setReservierungen(Reservierung[] reservierungen) {
+    public void setReservierungen(Collection<Reservierung> reservierungen) {
         this.reservierungen = reservierungen;
     }
 }

@@ -1,11 +1,19 @@
 package westbahn.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
 public class Reservierung {
+
+    public Reservierung() {
+
+    }
 
     @Id
 	private Long ID;
@@ -20,10 +28,13 @@ public class Reservierung {
 
 	private Zug zug;
 
+    @OneToOne
 	private Strecke strecke;
 
+    @ManyToOne
 	private Benutzer benutzer;
 
+    @OneToOne
 	private Zahlung zahlung;
 
     public Long getID() {
