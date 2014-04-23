@@ -1,6 +1,8 @@
 package westbahn.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+
 import java.util.Collection;
 
 @NamedQueries(value = {
@@ -15,7 +17,8 @@ public class Benutzer {
 	private String vorName;
 
 	private String nachName;
-
+	
+	@Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
 	private String eMail;
 
 	private String passwort;
