@@ -37,7 +37,6 @@ public class Reservierung {
     @ManyToOne
 	private Benutzer benutzer;
 
-    //@OneToOne
     @Transient
 	private Zahlung zahlung;
 

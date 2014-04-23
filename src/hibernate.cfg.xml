@@ -32,5 +32,6 @@
         <mapping class="westbahn.model.Reservierung"/>
         <mapping class="westbahn.model.Zug"/>
         <mapping class="westbahn.model.Zeitkarte"/>
+        <mapping class="westbahn.model.Einzelticket"/>
     </session-factory>
 </hibernate-configuration>

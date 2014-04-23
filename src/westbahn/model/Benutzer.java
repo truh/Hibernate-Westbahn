@@ -3,6 +3,8 @@ package westbahn.model;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
+
 import java.util.Collection;
 
 /*
