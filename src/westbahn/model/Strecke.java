@@ -2,15 +2,16 @@ package westbahn.model;
 
 import javax.persistence.*;
 
-public class Strecke {
-
+@Entity
+public class Strecke 
+{
 	@Id
 	private Long ID;
-
+	
+	@OneToOne(optional = false)
 	private Bahnhof start;
 
-	private Bahnhof bahnhof;
-
+	@OneToOne(optional = false)
 	private Bahnhof ende;
 	
 	public Strecke()
@@ -18,38 +19,43 @@ public class Strecke {
 		
 	}
 
-	public Long getID() {
+	public Long getID() 
+	{
 		return ID;
 	}
 
-	public void setID(Long iD) {
+	public void setID(Long iD) 
+	{
 		ID = iD;
 	}
 
-	public Bahnhof getStart() {
+	public Bahnhof getStart() 
+	{
 		return start;
 	}
 
-	public void setStart(Bahnhof start) {
+	public void setStart(Bahnhof start) 
+	{
 		this.start = start;
 	}
 
-	public Bahnhof getBahnhof() {
+	public Bahnhof getBahnhof() 
+	{
 		return bahnhof;
 	}
 
-	public void setBahnhof(Bahnhof bahnhof) {
+	public void setBahnhof(Bahnhof bahnhof) 
+	{
 		this.bahnhof = bahnhof;
 	}
 
-	public Bahnhof getEnde() {
+	public Bahnhof getEnde() 
+	{
 		return ende;
 	}
 
-	public void setEnde(Bahnhof ende) {
+	public void setEnde(Bahnhof ende) 
+	{
 		this.ende = ende;
 	}
-	
-	
-
 }

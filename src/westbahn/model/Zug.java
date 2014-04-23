@@ -4,8 +4,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-public class Zug {
-
+public class Zug 
+{
 	@Id
 	private Long ID;
 

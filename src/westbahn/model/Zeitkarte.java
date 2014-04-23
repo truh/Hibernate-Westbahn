@@ -3,28 +3,29 @@ package westbahn.model;
 import java.util.Date;
 import javax.persistence.*;
 
-public class Zeitkarte extends Ticket {
-
+@Entity
+public class Zeitkarte extends Ticket 
+{
 	private Date gueltigAb;
-
 	private ZeitkartenTyp typ;
 
-	public Date getGueltigAb() {
+	public Date getGueltigAb() 
+	{
 		return gueltigAb;
 	}
 
-	public void setGueltigAb(Date gueltigAb) {
+	public void setGueltigAb(Date gueltigAb) 
+	{
 		this.gueltigAb = gueltigAb;
 	}
 
-	public ZeitkartenTyp getTyp() {
+	public ZeitkartenTyp getTyp() 
+	{
 		return typ;
 	}
 
-	public void setTyp(ZeitkartenTyp typ) {
+	public void setTyp(ZeitkartenTyp typ) 
+	{
 		this.typ = typ;
 	}
-	
-	
-
 }

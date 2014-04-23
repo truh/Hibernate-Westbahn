@@ -1,9 +1,13 @@
 package westbahn.model;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
-public class Sonderangebot {
+@Entity
+public class Sonderangebot 
+{
 	@Id
 	private Long ID;
 
@@ -15,59 +19,70 @@ public class Sonderangebot {
 
 	private float preisNachlass = 0.5f;
 
-	private Ticket tickets;
+	@OneToMany
+	private List<Ticket> tickets;
 
-	
-	public Sonderangebot() {
+	public Sonderangebot() 
+	{
 	}
 
-	public Long getID() {
+	public Long getID() 
+	{
 		return ID;
 	}
 
-	public void setID(Long iD) {
+	public void setID(Long iD) 
+	{
 		ID = iD;
 	}
 
-	public int getKontingent() {
+	public int getKontingent() 
+	{
 		return kontingent;
 	}
 
-	public void setKontingent(int kontingent) {
+	public void setKontingent(int kontingent) 
+	{
 		this.kontingent = kontingent;
 	}
 
-	public Date getStartZeit() {
+	public Date getStartZeit() 
+	{
 		return startZeit;
 	}
 
-	public void setStartZeit(Date startZeit) {
+	public void setStartZeit(Date startZeit) 
+	{
 		this.startZeit = startZeit;
 	}
 
-	public int getDauer() {
+	public int getDauer() 
+	{
 		return dauer;
 	}
 
-	public void setDauer(int dauer) {
+	public void setDauer(int dauer)
+	{
 		this.dauer = dauer;
 	}
 
-	public float getPreisNachlass() {
+	public float getPreisNachlass() 
+	{
 		return preisNachlass;
 	}
 
-	public void setPreisNachlass(float preisNachlass) {
+	public void setPreisNachlass(float preisNachlass) 
+	{
 		this.preisNachlass = preisNachlass;
 	}
 
-	public Ticket getTickets() {
+	public List<Ticket> getTickets()
+	{
 		return tickets;
 	}
 
-	public void setTickets(Ticket tickets) {
+	public void setTickets(List<Ticket> tickets) 
+	{
 		this.tickets = tickets;
 	}
-	
-
 }
