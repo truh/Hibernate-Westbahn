@@ -39,16 +39,6 @@ public class Strecke
 		this.start = start;
 	}
 
-	public Bahnhof getBahnhof() 
-	{
-		return bahnhof;
-	}
-
-	public void setBahnhof(Bahnhof bahnhof) 
-	{
-		this.bahnhof = bahnhof;
-	}
-
 	public Bahnhof getEnde() 
 	{
 		return ende;

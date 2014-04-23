@@ -1,8 +1,11 @@
 package westbahn.model;
 
 import javax.persistence.Entity;
+
 import java.util.Date;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Zug 
@@ -10,6 +13,7 @@ public class Zug
 	@Id
 	private Long ID;
 
+	@NotNull
 	private Date startZeit;
 
 	private int sitzPlaetze = 500;

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Sonderangebot 
@@ -12,7 +14,9 @@ public class Sonderangebot
 	private Long ID;
 
 	private int kontingent = 999;
-
+	
+	@NotNull
+	@Future
 	private Date startZeit;
 
 	private int dauer = 12;

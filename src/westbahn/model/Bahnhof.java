@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import javax.validation.constraints.*;
 
 @Entity
 public class Bahnhof {
@@ -16,6 +17,7 @@ public class Bahnhof {
 	private Long ID;
 
     @Column(unique = true)
+    @Pattern(regexp = "[0-9A-Za-z-]{2,150}")
 	private String name;
 
 	private int absPreisEntfernung;
