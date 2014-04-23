@@ -11,7 +11,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://10.0.105.118:3306/westbahn</property>
         <property name="hibernate.connection.username">westbahnUser</property>
         <property name="hibernate.connection.password">westbahnPassword</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
         <!-- JDBC connection pool {use the built-in} -->
         <property name="connection.pool_size">1</property>
@@ -26,6 +26,11 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="westbahn.model.Benutzer"/>
-
+        <mapping class="westbahn.model.Ticket" />
+        <mapping class="westbahn.model.Strecke"/>
+        <mapping class="westbahn.model.Bahnhof"/>
+        <mapping class="westbahn.model.Reservierung"/>
+        <mapping class="westbahn.model.Zug"/>
+        <mapping class="westbahn.model.Zeitkarte"/>
     </session-factory>
 </hibernate-configuration>

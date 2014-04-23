@@ -2,13 +2,19 @@ package westbahn;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 
+import westbahn.model.Benutzer;
+import westbahn.model.Kreditkarte;
+import westbahn.model.Ticket;
+import westbahn.model.Zeitkarte;
+
 import javax.persistence.EntityManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 public class Main
@@ -61,12 +67,22 @@ public class Main
     }
 
     public static void task01() throws ParseException, InterruptedException {
-
-
+    	Benutzer b1 = new Benutzer();
+    	b1.setID(1337L);
+    	Zeitkarte t1 = new Zeitkarte();
+    	t1.setID(1300L);
+    	t1.setZahlung(new Kreditkarte());
+    	b1.seteMail("stuff@stuff.com");
+    	
+    	ArrayList<Ticket> ar = new ArrayList<Ticket>();
+    	ar.add(t1);
+    	b1.setTickets(ar);
 
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
         //session.save(xxxx);
+        session.save(t1);
+        session.save(b1);
         tx.commit();
 
     }

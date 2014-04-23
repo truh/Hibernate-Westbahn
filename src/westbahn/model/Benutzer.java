@@ -5,10 +5,11 @@ import javax.validation.constraints.Pattern;
 
 import java.util.Collection;
 
+/*
 @NamedQueries(value = {
         @NamedQuery(name = "getAllReservations",
                 query = "SELECT b FROM benutzer WHERE b.eMail = :emailAddress ")
-})
+})*/
 @Entity
 public class Benutzer {
     @Id

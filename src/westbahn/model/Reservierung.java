@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 import java.util.Date;
 
 @Entity
@@ -25,16 +27,18 @@ public class Reservierung {
 	private int preis = 150;
 
 	private StatusInfo status;
-
+	
+	@OneToOne(optional = false)
 	private Zug zug;
 
-    @OneToOne
+    @OneToOne(optional = false)
 	private Strecke strecke;
 
     @ManyToOne
 	private Benutzer benutzer;
 
-    @OneToOne
+    //@OneToOne
+    @Transient
 	private Zahlung zahlung;
 
     public Long getID() {

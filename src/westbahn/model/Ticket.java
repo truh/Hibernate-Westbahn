@@ -11,7 +11,8 @@ public abstract class Ticket
 	@OneToOne(optional = false)
 	protected Strecke strecke;
 	
-	@OneToOne(optional = false)
+	//@OneToOne(optional = false)
+	@Transient
 	protected Zahlung zahlung;
 
 	public Long getID() 
