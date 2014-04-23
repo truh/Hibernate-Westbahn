@@ -1,6 +1,8 @@
 package westbahn.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,6 +13,8 @@ public class Zeitkarte extends Ticket
 {
 	@NotNull
 	private Date gueltigAb;
+
+    @Enumerated(value = EnumType.STRING)
 	private ZeitkartenTyp typ;
 
 	public Date getGueltigAb() 

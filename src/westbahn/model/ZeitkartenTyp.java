@@ -1,7 +1,7 @@
 package westbahn.model;
 
-public enum ZeitkartenTyp {;
-	public int WOCHENKARTE;
-	public int MONATSKARTE;
-	public int JAHRESKARTE;
+public enum ZeitkartenTyp {
+	WOCHENKARTE,
+	MONATSKARTE,
+	JAHRESKARTE,
 }

@@ -2,16 +2,17 @@ package westbahn.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Email;
-
 import java.util.Collection;
 
-/*
+
 @NamedQueries(value = {
         @NamedQuery(name = "getAllReservations",
-                query = "SELECT b FROM benutzer WHERE b.eMail = :emailAddress ")
-})*/
+                query = "FROM Benutzer WHERE eMail = :emailAddress"),
+        @NamedQuery(name = "getPassengersWithMonthlyPass",
+                query = "SELECT DISTINCT b FROM Benutzer b " +
+                        "INNER JOIN Zeitkarte z " +
+                        "WHERE z.typ = 'MONATSKARTE'")
+})
 @Entity
 public class Benutzer {
     @Id

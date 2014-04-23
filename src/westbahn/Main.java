@@ -43,6 +43,7 @@ public class Main
     }
 
     public static void main(String[] args) {
+        ZeitkartenTyp typ = ZeitkartenTyp.MONATSKARTE;
         log.setLevel(Level.ALL);
         try {
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
