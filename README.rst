@@ -10,7 +10,7 @@ Erstellen Sie von folgendem Modell Persistenzklassen und implementieren Sie
 diese mittels der Java Persistence API in einer Dreier-Gruppe.
 
 .. image:: doc/Domainmodel.png
-    :width: 80%
+    :width: 100%
 
 Gehen Sie von den folgenden Annahmen aus:
 

@@ -1,11 +1,12 @@
 package westbahn.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 @Entity
+@Inheritance()
 public class Zeitkarte extends Ticket 
 {
 	@NotNull
