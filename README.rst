@@ -9,6 +9,9 @@ Angabe
 Erstellen Sie von folgendem Modell Persistenzklassen und implementieren Sie
 diese mittels der Java Persistence API in einer Dreier-Gruppe.
 
+.. image:: doc/Domainmodel.png
+    :width: 80%
+
 Gehen Sie von den folgenden Annahmen aus:
 
 ~~~~~~~
@@ -115,13 +118,6 @@ Parameter akzeptieren und die gewünschten Typen zurückliefern:
 2. Liste alle Benutzer auf, die eine Monatskarte besitzen.
 3. Liste alle Tickets für eine bestimmte Strecke aus (durch Anfangs- und
    Endbahnhof definiert), wo keine Reservierungen durchgeführt wurden.
-
-~~~~~~~~~~~~~~~~~~~~~~~
-Tipps und Hilfestellung
-~~~~~~~~~~~~~~~~~~~~~~~
-
-http://download.oracle.com/javaee/6/tutorial/doc/bnbpy.html
-http://docs.jboss.org/hibernate/stable/annotations/reference/en/html/
 
 ==============================
 Datenbank und Benutzer anlegen
