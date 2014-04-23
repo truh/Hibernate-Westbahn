@@ -1,5 +1,6 @@
 package westbahn.model;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import javax.persistence.*;
 
