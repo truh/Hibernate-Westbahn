@@ -2,7 +2,10 @@ package westbahn.model;
 
 import javax.persistence.*;
 
+import westbahn.BahnhofValidator;
+
 @Entity
+@BahnhofValidator(bahnhof1 = "start", bahnhof2 = "ende")
 public class Strecke 
 {
 	@Id

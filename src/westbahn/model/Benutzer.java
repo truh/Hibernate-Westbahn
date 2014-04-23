@@ -18,7 +18,7 @@ public class Benutzer {
 
 	private String nachName;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
+	@Pattern(regexp = "^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-\.?]+)\.([a-zA-Z0-9-]+)")
 	private String eMail;
 
 	private String passwort;

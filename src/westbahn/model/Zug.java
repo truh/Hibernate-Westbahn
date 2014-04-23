@@ -7,7 +7,10 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import westbahn.BahnhofValidator;
+
 @Entity
+@BahnhofValidator(bahnhof1 = "start", bahnhof2 = "ende")
 public class Zug 
 {
 	@Id
