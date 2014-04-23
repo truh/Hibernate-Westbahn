@@ -5,11 +5,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 
-import westbahn.model.Benutzer;
-import westbahn.model.Kreditkarte;
-import westbahn.model.Ticket;
-import westbahn.model.Zeitkarte;
-
+import westbahn.model.*;
 import javax.persistence.EntityManager;
 
 import java.text.ParseException;
@@ -66,13 +62,30 @@ public class Main
         // dateForm.parse("01.01.1930")
     }
 
-    public static void task01() throws ParseException, InterruptedException {
+    public static void task01() throws ParseException, InterruptedException 
+    {
     	Benutzer b1 = new Benutzer();
+    	Einzelticket t1 = new Einzelticket();
+    	Strecke s1 = new Strecke();
+    	Bahnhof bb1 = new Bahnhof();
+    	Bahnhof bb2 = new Bahnhof();
+    	Kreditkarte k1 = new Kreditkarte();
+    	
     	b1.setID(1337L);
-    	Zeitkarte t1 = new Zeitkarte();
+    	b1.seteMail("stuff@stuff");
+    	
+    	bb1.setName("hallo");
+    	bb1.setID(0L);
+    	bb2.setName("tschuess");
+    	bb2.setID(1L);
+    	
+    	s1.setStart(bb1);
+    	s1.setEnde(bb1);
+    	s1.setID(1L);
+    	
     	t1.setID(1300L);
-    	t1.setZahlung(new Kreditkarte());
-    	b1.seteMail("stuff@stuff.com");
+    	t1.setZahlung(k1);
+    	t1.setStrecke(s1);
     	
     	ArrayList<Ticket> ar = new ArrayList<Ticket>();
     	ar.add(t1);
@@ -80,11 +93,14 @@ public class Main
 
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
-        //session.save(xxxx);
+        
+        session.save(bb1);
+        session.save(bb2);
+        session.save(s1);
         session.save(t1);
         session.save(b1);
+        
         tx.commit();
-
     }
 
     public static void task02a() throws ParseException {

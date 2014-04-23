@@ -24,12 +24,11 @@ public class BahnhofValidatorImpl implements ConstraintValidator<BahnhofValidato
 		{
 			Bahnhof b1 = (Bahnhof) PropertyUtils.getProperty(value, bahnhof1);
 			Bahnhof b2 = (Bahnhof) PropertyUtils.getProperty(value, bahnhof2);
-			  
+			
 		    if((b1 == null) && (b2 == null)) return true;
+		    boolean matches = (b1.getName().equals(b2.getName()));
 		
-		    boolean matches = (b1.getID() == b2.getID());
-		
-		    if (matches) 
+		    if (matches)
 		    {
 		    	context.disableDefaultConstraintViolation();
 		    	context.buildConstraintViolationWithTemplate("message")
