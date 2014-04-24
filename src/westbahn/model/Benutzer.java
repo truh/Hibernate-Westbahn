@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
-
+/*
 @NamedQueries(value = {
         /*@NamedQuery(name = "getAllReservations",
                 query = "FROM Benutzer WHERE eMail = :emailAddress"),
@@ -13,10 +13,11 @@ import java.util.Collection;
                         "INNER JOIN Ticket t ON t IN b.tickets " +
                         "JOIN Zeitkarte z " +
                         "WHERE z.typ = 'MONATSKARTE'")     */
-})
+
 @Entity
 public class Benutzer {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
 
 	private String vorName;

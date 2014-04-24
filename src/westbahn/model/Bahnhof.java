@@ -1,8 +1,6 @@
 package westbahn.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import javax.validation.constraints.*;
 
@@ -14,6 +12,7 @@ public class Bahnhof {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 
     @Column(unique = true)

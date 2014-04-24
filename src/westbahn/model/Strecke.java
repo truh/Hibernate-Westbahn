@@ -9,6 +9,7 @@ import westbahn.BahnhofValidator;
 public class Strecke 
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
 	
 	@OneToOne(optional = false)
