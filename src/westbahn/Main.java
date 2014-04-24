@@ -145,12 +145,6 @@ public class Main
 
             bahnhofs1[i] = bahnhof;
 
-            if(session.isOpen()) {
-                log.info("session is open");
-            } else {
-                log.info("session is closed");
-            }
-
             session.save(bahnhof);
         }
         tx.commit();

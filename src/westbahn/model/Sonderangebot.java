@@ -1,16 +1,16 @@
 package westbahn.model;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Sonderangebot 
 {
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 
 	private int kontingent = 999;

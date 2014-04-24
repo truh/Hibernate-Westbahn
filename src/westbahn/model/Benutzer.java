@@ -31,7 +31,7 @@ public class Benutzer {
 
 	private String smsNummer;
 
-	private Long verbuchtePraemienMeilen;
+	private Long verbuchtePraemienMeilen = 0L;
 
     @OneToMany
 	private Collection<Ticket> tickets;
