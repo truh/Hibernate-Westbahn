@@ -14,10 +14,10 @@ public class Strecke
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Bahnhof start;
 
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Bahnhof ende;
 	
 	@OneToMany

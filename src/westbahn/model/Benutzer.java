@@ -4,15 +4,18 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
-/*
 @NamedQueries(value = {
-        /*@NamedQuery(name = "getAllReservations",
-                query = "FROM Benutzer WHERE eMail = :emailAddress"),
+        //@NamedQuery(name = "getAllReservations",
+        //        query = "FROM Benutzer WHERE eMail = :emailAddress"),
+        @NamedQuery(name = "getAllReservations",
+        		query = "FROM Reservierung r INNER JOIN r.benutzer b WHERE b.eMail = :emailAddress"),
         @NamedQuery(name = "getPassengersWithMonthlyPass",
-                query = "SELECT DISTINCT b FROM Benutzer b " +
-                        "INNER JOIN Ticket t ON t IN b.tickets " +
-                        "JOIN Zeitkarte z " +
-                        "WHERE z.typ = 'MONATSKARTE'")     */
+        			query = "FROM Benutzer b INNER JOIN b.tickets t WHERE t.typ = 'MONATSKARTE'")
+        ////        query = "SELECT DISTINCT b FROM Benutzer b " +
+        //                "INNER JOIN Ticket t ON t IN b.tickets " +
+        //                "JOIN Zeitkarte z " +
+        //                "WHERE z.typ = 'MONATSKARTE'")     
+})
 
 @Entity
 public class Benutzer {

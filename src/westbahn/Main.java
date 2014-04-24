@@ -6,9 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-import westbahn.model.*;
-import org.hibernate.*;
 
+import westbahn.model.*;
+
+import org.hibernate.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 
 public class Main
@@ -46,6 +54,7 @@ public class Main
         {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            
         }
         catch (Exception ex)
         {
@@ -308,6 +317,9 @@ public class Main
 
     public static void task01() throws ParseException, InterruptedException 
     {
+    	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    	Validator validator = factory.getValidator();
+    	
     	Benutzer b1 = new Benutzer();
     	Benutzer b2 = new Benutzer();
     	Zeitkarte t1 = new Zeitkarte();
@@ -315,24 +327,40 @@ public class Main
     	Einzelticket t3 = new Einzelticket();
     	Strecke s1 = new Strecke();
     	Strecke s2 = new Strecke();
+    	Strecke s3 = new Strecke();
     	Bahnhof bb1 = new Bahnhof();
     	Bahnhof bb2 = new Bahnhof();
     	Kreditkarte k1 = new Kreditkarte();
     	Reservierung r1 = new Reservierung();
     	Zug z = new Zug();
+    	Sonderangebot s = new Sonderangebot();
+    	
+    	s.setDauer(10);
+    	s.setKontingent(1500);
+    	s.setStartZeit(new Date(0,0,0,0,0));
+    	s.setPreisNachlass(15.2f);
 
     	b1.seteMail("stuff@stuff");
+    	b1.setVorName("jakob");
+    	b1.setNachName("Klepp");
+    	b1.setVerbuchtePraemienMeilen(1337L);
     	b2.seteMail("hell");
+    	b2.setVorName("Peter");
+    	b2.setNachName("Silie");
+    	b2.setVerbuchtePraemienMeilen(9192949299299L);
 
     	bb1.setName("Huetteldorf");
     	bb2.setName("Floridsdorf");
     	
-    	s1.setStart(bb2);
+    	s1.setStart(bb1);
     	s1.setEnde(bb1);
     	
     	s2.setStart(bb1);
     	s2.setEnde(bb2);
-
+    	
+    	s3.setStart(bb1);
+    	s3.setEnde(bb1);
+    	
     	t1.setZahlung(k1);
     	t1.setStrecke(s1);
     	t1.setTyp(ZeitkartenTyp.MONATSKARTE);
@@ -363,12 +391,19 @@ public class Main
     	ar2.add(t3);
     	b1.setTickets(ar);
     	
-    	ArrayList<Reservierung> rr = new ArrayList<Reservierung>();
-    	rr.add(r1);
     	b2.setTickets(ar2);
-    	b2.setReservierungen(rr);
+    	r1.setBenutzer(b2);
+    	s.setTickets(ar);
     	
-
+    	Set<ConstraintViolation<Benutzer>> viol = validator.validate(b1);
+    	Iterator it  = viol.iterator();
+    	
+    	while(it.hasNext())
+    	{
+    		ConstraintViolation<Benutzer> v = (ConstraintViolation<Benutzer>)it.next();
+    		System.err.println("VIOLATION: "+v.getMessage());
+    	}
+    	
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
         
@@ -381,6 +416,7 @@ public class Main
         session.save(t1);
         session.save(t2);
         session.save(t3);
+        session.save(s);
         session.save(b1);
         session.save(b2);
         
@@ -389,10 +425,54 @@ public class Main
 
     public static void task02a() throws ParseException
     {
+    	Session session = getSessionFactory().getCurrentSession();
+    	session.beginTransaction();
     	
+    	try
+    	{
+	    	Query query = session.getNamedQuery("getAllReservations")
+	        		.setString("emailAddress", "hell");
+	    	
+	    	List<Reservierung> tickets = (List<Reservierung>)query.list();
+	    	Iterator it = tickets.iterator();
+	    	while(it.hasNext())
+	    	{
+	    		Object[] t = (Object[])it.next();
+	    		Reservierung r = (Reservierung)t[0];
+	    		
+	    		System.out.println("Reservierung "+r.getID()+" | Datum: "+r.getDatum()+" | Praem. Meilen: "+r.getPraemienMeilenBonus()+" | Preis: "+r.getPreis()+" | Status: "+r.getStatus());
+	    	}
+    	}
+    	finally
+    	{
+    		session.getTransaction().commit();
+    	}
     }
 
-    public static void task02b() throws ParseException {
+    public static void task02b() throws ParseException 
+    {
+    	Session session = getSessionFactory().getCurrentSession();
+    	session.beginTransaction();
+    	
+    	try
+    	{
+	    	Query query = session.getNamedQuery("getPassengersWithMonthlyPass");
+	    	
+	    	List<Benutzer> tickets = (List<Benutzer>)query.list();
+	    	
+	    	Iterator it = tickets.iterator();
+	    	while(it.hasNext())
+	    	{
+	    		Object[] t = (Object[])it.next();
+	    		Benutzer b = (Benutzer)t[0];
+	    		
+	    		System.out.println("Benutzer "+b.getID()+" | Name: "+b.getNachName()+","+b.getVorName()+" | EMail: "+b.geteMail()+ "  | Praem. Meilen: "+b.getVerbuchtePraemienMeilen());
+	    	}
+    	}
+    	finally
+    	{
+    		session.getTransaction().commit();
+    	}
     }
 
     public static void task02c() throws ParseException 
@@ -431,5 +511,9 @@ public class Main
     		session.getTransaction().commit();
     	}
     }
-
+    
+    public static void doValidation (Object t) throws ValidationException
+    {
+    	
+    }
 }
