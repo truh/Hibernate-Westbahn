@@ -15,6 +15,7 @@ import javax.persistence.*;
 public abstract class Ticket 
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected Long ID;
 	
 	@OneToOne(optional = false)

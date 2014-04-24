@@ -4,14 +4,18 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
+import org.hibernate.transform.RootEntityResultTransformer;
 
 import westbahn.model.*;
+
 import javax.persistence.EntityManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class Main
@@ -301,10 +305,12 @@ public class Main
     {
     	Benutzer b1 = new Benutzer();
     	Zeitkarte t1 = new Zeitkarte();
+    	Einzelticket t2 = new Einzelticket();
     	Strecke s1 = new Strecke();
     	Bahnhof bb1 = new Bahnhof();
     	Bahnhof bb2 = new Bahnhof();
     	Kreditkarte k1 = new Kreditkarte();
+    	Reservierung r1 = new Reservierung();
 
     	b1.seteMail("stuff@stuff");
 
@@ -318,8 +324,13 @@ public class Main
     	t1.setStrecke(s1);
     	t1.setTyp(ZeitkartenTyp.MONATSKARTE);
     	
+    	t2.setZahlung(k1);
+    	t2.setStrecke(s1);
+    	t2.setTicketOption(TicketOption.FAHRRAD);
+    	
     	ArrayList<Ticket> ar = new ArrayList<Ticket>();
     	ar.add(t1);
+    	ar.add(t2);
     	b1.setTickets(ar);
 
         Session session = getSessionFactory().getCurrentSession();
@@ -329,13 +340,47 @@ public class Main
         session.save(bb2);
         session.save(s1);
         session.save(t1);
+        session.save(t2);
         session.save(b1);
         
-        tx.commit();
+        tx.commit(); 
     }
 
-    public static void task02a() throws ParseException {
-
+    public static void task02a() throws ParseException
+    {
+    	Session session = getSessionFactory().getCurrentSession();
+    	session.beginTransaction();
+    	
+    	try
+    	{
+	    	Query query = session.getNamedQuery("getConnectionWithoutReservations")
+	        		.setInteger("start", 1)
+	        		.setInteger("ende", 1);
+	    	
+	    	List<Ticket> tickets = (List<Ticket>)query.list();
+	    	Iterator it = tickets.iterator();
+	    	while(it.hasNext())
+	    	{
+	    		Object[] t = (Object[])it.next();
+	    		Ticket gt = (Ticket)t[0];
+	    		
+	    		System.out.println("Ticket: "+gt.getID()+" | Start: "+gt.getStrecke().getStart().getName()+" | Ende: "+gt.getStrecke().getEnde().getName());
+	    		if(t[0] instanceof Einzelticket)
+	    		{
+	    			Einzelticket et = (Einzelticket) t[0];
+	    			System.out.println("-- Einzelticket: "+et.getTicketOption().toString());
+	    		}
+	    		else if(t[0] instanceof Zeitkarte)
+	    		{
+	    			Zeitkarte zt = (Zeitkarte) t[0];
+	    			System.out.println("-- Zeitkarte: "+zt.getGueltigAb()+" | "+zt.getTyp().toString());
+	    		}
+	    	}
+    	}
+    	finally
+    	{
+    		session.getTransaction().commit();
+    	}
     }
 
     public static void task02b() throws ParseException {
