@@ -1,19 +1,17 @@
 package westbahn.model;
 
-import javax.persistence.Entity;
-
-import java.util.Date;
+import westbahn.BahnhofValidator;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import westbahn.BahnhofValidator;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @BahnhofValidator(bahnhof1 = "start", bahnhof2 = "ende")
 public class Zug 
 {
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 
 	@NotNull
