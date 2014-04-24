@@ -23,10 +23,10 @@ public class Zug
 
 	private int rollStuhlPlaetze = 10;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Bahnhof start;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Bahnhof ende;
 	
 	public Zug()
