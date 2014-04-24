@@ -11,6 +11,7 @@ import westbahn.model.*;
 
 import org.hibernate.*;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,7 +139,7 @@ public class Main
                 291
         };
 
-        Bahnhof[] bahnhofs1 = new Bahnhof[bahnhofs.length];
+        Serializable[] bahnhofs_ids = new Serializable[bahnhofs.length];
 
         for(int i = 0; i<bahnhofs.length; i++) {
             Bahnhof bahnhof = new Bahnhof();
@@ -152,9 +153,9 @@ public class Main
                 bahnhof.setKopfBahnhof(true); //default = false
             }
 
-            bahnhofs1[i] = bahnhof;
-
             session.save(bahnhof);
+
+            bahnhofs_ids[i] = session.getIdentifier(bahnhof);
         }
         tx.commit();
 
@@ -265,6 +266,8 @@ public class Main
                 {"Reiner", "Boles", "Reiner.Boles@spambog.de", "bcPzbPH5fAH", "9644 5521936685"}
         };
 
+        Serializable[] benutzer_ids = new Serializable[benutzer_data.length];
+
         session = getSessionFactory().getCurrentSession();
         tx = session.beginTransaction();
 
@@ -278,6 +281,7 @@ public class Main
             benutzer.setSmsNummer(b_data[4]);
 
             session.save(benutzer);
+            benutzer_ids[i] = session.getIdentifier(benutzer);
         }
         tx.commit();
 
@@ -290,26 +294,26 @@ public class Main
 
         Zug zug = new Zug();
         zug.setStartZeit(new Date(2014, 4, 23, 8, 50));
-        zug.setStart(bahnhofs1[0]);
-        zug.setEnde(bahnhofs1[7]);
+        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
         session.save(zug);
 
         zug = new Zug();
         zug.setStartZeit(new Date(2013, 5, 23, 9, 50));
-        zug.setStart(bahnhofs1[7]);
-        zug.setEnde(bahnhofs1[0]);
+        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
         session.save(zug);
 
         zug = new Zug();
         zug.setStartZeit(new Date(2012, 6, 23, 10, 50));
-        zug.setStart(bahnhofs1[0]);
-        zug.setEnde(bahnhofs1[7]);
+        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
         session.save(zug);
 
         zug = new Zug();
         zug.setStartZeit(new Date(2011, 7, 23, 11, 50));
-        zug.setStart(bahnhofs1[7]);
-        zug.setEnde(bahnhofs1[0]);
+        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
         session.save(zug);
 
         tx.commit();
