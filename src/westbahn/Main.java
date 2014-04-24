@@ -21,29 +21,41 @@ public class Main
     static SimpleDateFormat dateForm = new SimpleDateFormat("dd.MM.yyyy");
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
-    static {
-        try {
+    static 
+    {
+        try 
+        {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+        }
+        catch (Exception ex) 
+        {
+            System.out.println("Verbindung zum Datenbank-Server gescheitert: "+ex.getMessage());
         }
     }
 
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() 
+    {
         return sessionFactory;
     }
 
-    private Main() {
+    private Main() 
+    {
         super();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         log.setLevel(Level.ALL);
+        
+        if(sessionFactory == null)
+        {
+        	log.error("Fatal error while intialising");
+        	System.exit(1);
+        }
+        
         try {
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
@@ -65,7 +77,7 @@ public class Main
     public static void task01() throws ParseException, InterruptedException 
     {
     	Benutzer b1 = new Benutzer();
-    	Einzelticket t1 = new Einzelticket();
+    	Zeitkarte t1 = new Zeitkarte();
     	Strecke s1 = new Strecke();
     	Bahnhof bb1 = new Bahnhof();
     	Bahnhof bb2 = new Bahnhof();
@@ -86,6 +98,7 @@ public class Main
     	t1.setID(1300L);
     	t1.setZahlung(k1);
     	t1.setStrecke(s1);
+    	t1.setTyp(ZeitkartenTyp.MONATSKARTE);
     	
     	ArrayList<Ticket> ar = new ArrayList<Ticket>();
     	ar.add(t1);

@@ -3,9 +3,9 @@ package westbahn.model;
 import javax.persistence.*;
 
 @NamedQueries(
-        @NamedQuery(name = "getConnectionWithoutReservations",
+       @NamedQuery(name = "getConnectionWithoutReservations",
                 query = "FROM Ticket t " +
-                        "INNER JOIN Strecke s " +
+                        "INNER JOIN t.strecke s " +
                         "WHERE s.start = :start " +
                         "AND s.ende = :ende " +
                         "AND 0 = (SELECT COUNT(r) FROM Reservierung r " +
