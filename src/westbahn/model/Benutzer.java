@@ -6,12 +6,13 @@ import java.util.Collection;
 
 
 @NamedQueries(value = {
-        @NamedQuery(name = "getAllReservations",
+        /*@NamedQuery(name = "getAllReservations",
                 query = "FROM Benutzer WHERE eMail = :emailAddress"),
         @NamedQuery(name = "getPassengersWithMonthlyPass",
                 query = "SELECT DISTINCT b FROM Benutzer b " +
-                        "INNER JOIN Zeitkarte " +
-                        "WHERE Zeitkarte.typ = 'MONATSKARTE'")
+                        "INNER JOIN Ticket t ON t IN b.tickets " +
+                        "JOIN Zeitkarte z " +
+                        "WHERE z.typ = 'MONATSKARTE'")     */
 })
 @Entity
 public class Benutzer {

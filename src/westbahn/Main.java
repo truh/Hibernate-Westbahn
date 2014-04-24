@@ -2,16 +2,20 @@ package westbahn;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
-import org.hibernate.cfg.*;
-
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.ejb.HibernatePersistence;
 import westbahn.model.*;
-import javax.persistence.EntityManager;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class Main
@@ -23,6 +27,8 @@ public class Main
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
     private static SessionFactory sessionFactory;
+    private static EntityManagerFactory entityManagerFactory
+            = new HibernatePersistence().createEntityManagerFactory("entityManagerFactory!", new HashMap());
 
     static 
     {
@@ -58,7 +64,8 @@ public class Main
         }
         
         try {
-            log.info("Starting ");
+            log.info("Starting \"Filling the DB with testdata!\"");
+            fillDB(entityManagerFactory.createEntityManager());
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
             log.info("Starting \"Working with JPA-QL and the Hibernate Criteria API\" (task2)");
