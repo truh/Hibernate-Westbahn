@@ -1,5 +1,12 @@
 package westbahn.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,7 +32,7 @@ public class Reservierung {
 	@OneToOne(optional = false)
 	private Zug zug;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
 	private Strecke strecke;
 
     @ManyToOne

@@ -1,5 +1,7 @@
 package westbahn.model;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 import westbahn.BahnhofValidator;
@@ -17,6 +19,12 @@ public class Strecke
 
 	@OneToOne(optional = false)
 	private Bahnhof ende;
+	
+	@OneToMany
+	private Collection<Ticket> tickets;
+	
+	@OneToMany
+	private Collection<Reservierung> reservierungen;
 	
 	public Strecke()
 	{

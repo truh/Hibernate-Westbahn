@@ -61,7 +61,7 @@ public class Main
         
         try {
             log.info("Starting \"Filling the DB with testdata!\"");
-            fillDB();
+            //fillDB();
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
             log.info("Starting \"Working with JPA-QL and the Hibernate Criteria API\" (task2)");
@@ -313,21 +313,29 @@ public class Main
     public static void task01() throws ParseException, InterruptedException 
     {
     	Benutzer b1 = new Benutzer();
+    	Benutzer b2 = new Benutzer();
     	Zeitkarte t1 = new Zeitkarte();
     	Einzelticket t2 = new Einzelticket();
+    	Einzelticket t3 = new Einzelticket();
     	Strecke s1 = new Strecke();
+    	Strecke s2 = new Strecke();
     	Bahnhof bb1 = new Bahnhof();
     	Bahnhof bb2 = new Bahnhof();
     	Kreditkarte k1 = new Kreditkarte();
     	Reservierung r1 = new Reservierung();
+    	Zug z = new Zug();
 
     	b1.seteMail("stuff@stuff");
+    	b2.seteMail("hell");
 
     	bb1.setName("Huetteldorf");
     	bb2.setName("Floridsdorf");
     	
-    	s1.setStart(bb1);
+    	s1.setStart(bb2);
     	s1.setEnde(bb1);
+    	
+    	s2.setStart(bb1);
+    	s2.setEnde(bb2);
 
     	t1.setZahlung(k1);
     	t1.setStrecke(s1);
@@ -337,10 +345,33 @@ public class Main
     	t2.setStrecke(s1);
     	t2.setTicketOption(TicketOption.FAHRRAD);
     	
+    	t3.setZahlung(k1);
+    	t3.setStrecke(s2);
+    	t3.setTicketOption(TicketOption.GROSSGEPAECK);
+    	
+    	z.setStart(bb1);
+    	z.setEnde(bb2);
+    	z.setFahrradStellplaetze(15);
+    	z.setStartZeit(new Date());
+    	
+    	r1.setDatum(new Date());
+    	r1.setPreis(1337);
+    	r1.setStrecke(s2);
+    	r1.setZahlung(k1);
+    	r1.setZug(z);
+    	
     	ArrayList<Ticket> ar = new ArrayList<Ticket>();
+    	ArrayList<Ticket> ar2 = new ArrayList<Ticket>();
     	ar.add(t1);
     	ar.add(t2);
+    	ar2.add(t3);
     	b1.setTickets(ar);
+    	
+    	ArrayList<Reservierung> rr = new ArrayList<Reservierung>();
+    	rr.add(r1);
+    	b2.setTickets(ar2);
+    	b2.setReservierungen(rr);
+    	
 
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
@@ -348,14 +379,27 @@ public class Main
         session.save(bb1);
         session.save(bb2);
         session.save(s1);
+        session.save(s2);
+        session.save(z);
+        session.save(r1);
         session.save(t1);
         session.save(t2);
+        session.save(t3);
         session.save(b1);
+        session.save(b2);
         
         tx.commit(); 
     }
 
     public static void task02a() throws ParseException
+    {
+    	
+    }
+
+    public static void task02b() throws ParseException {
+    }
+
+    public static void task02c() throws ParseException 
     {
     	Session session = getSessionFactory().getCurrentSession();
     	session.beginTransaction();
@@ -363,7 +407,7 @@ public class Main
     	try
     	{
 	    	Query query = session.getNamedQuery("getConnectionWithoutReservations")
-	        		.setInteger("start", 1)
+	        		.setInteger("start", 2)
 	        		.setInteger("ende", 1);
 	    	
 	    	List<Ticket> tickets = (List<Ticket>)query.list();
@@ -373,7 +417,7 @@ public class Main
 	    		Object[] t = (Object[])it.next();
 	    		Ticket gt = (Ticket)t[0];
 	    		
-	    		System.out.println("Ticket: "+gt.getID()+" | Start: "+gt.getStrecke().getStart().getName()+" | Ende: "+gt.getStrecke().getEnde().getName());
+	    		System.out.println("Ticket "+gt.getID()+" | Start: "+gt.getStrecke().getStart().getName()+" | Ende: "+gt.getStrecke().getEnde().getName());
 	    		if(t[0] instanceof Einzelticket)
 	    		{
 	    			Einzelticket et = (Einzelticket) t[0];
@@ -390,12 +434,6 @@ public class Main
     	{
     		session.getTransaction().commit();
     	}
-    }
-
-    public static void task02b() throws ParseException {
-    }
-
-    public static void task02c() throws ParseException {
     }
 
 }

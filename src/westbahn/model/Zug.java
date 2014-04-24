@@ -1,5 +1,9 @@
 package westbahn.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import java.util.Date;
 import westbahn.BahnhofValidator;
 
 import javax.persistence.*;
