@@ -6,16 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.ejb.HibernatePersistence;
 import westbahn.model.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 
 public class Main
@@ -27,21 +23,6 @@ public class Main
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
     private static SessionFactory sessionFactory;
-    private static EntityManagerFactory entityManagerFactory
-            = new HibernatePersistence().createEntityManagerFactory("entityManagerFactory!", new HashMap());
-
-    static 
-    {
-        try 
-        {
-            // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        }
-        catch (Exception ex) 
-        {
-            System.out.println("Verbindung zum Datenbank-Server gescheitert: "+ex.getMessage());
-        }
-    }
 
     public static SessionFactory getSessionFactory() 
     {
@@ -56,6 +37,16 @@ public class Main
     public static void main(String[] args) 
     {
         log.setLevel(Level.ALL);
+
+        try
+        {
+            // Create the SessionFactory from hibernate.cfg.xml
+            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Verbindung zum Datenbank-Server gescheitert: "+ex.getMessage());
+        }
         
         if(sessionFactory == null)
         {
@@ -65,7 +56,7 @@ public class Main
         
         try {
             log.info("Starting \"Filling the DB with testdata!\"");
-            fillDB(entityManagerFactory.createEntityManager());
+            fillDB();
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
             log.info("Starting \"Working with JPA-QL and the Hibernate Criteria API\" (task2)");
@@ -79,7 +70,10 @@ public class Main
         }
     }
 
-    public static void fillDB(EntityManager em) throws ParseException {
+    public static void fillDB() throws ParseException {
+
+        Session session = getSessionFactory().getCurrentSession();
+        Transaction tx = session.beginTransaction();
 
         ///////////////////////////////////////////////////
         /// Bahnhof                                     ///
@@ -135,7 +129,6 @@ public class Main
 
         for(int i = 0; i<bahnhofs.length; i++) {
             Bahnhof bahnhof = new Bahnhof();
-            bahnhof.setID((long)i);
             bahnhof.setName(bahnhofs[i]);
             bahnhof.setAbsPreisEntfernung(bahnhofs_preise[i]);
             bahnhof.setAbsZeitEntfernung(bahnhofs_dauer[i]);
@@ -148,8 +141,15 @@ public class Main
 
             bahnhofs1[i] = bahnhof;
 
-            em.persist(bahnhof);
+            if(session.isOpen()) {
+                log.info("session is open");
+            } else {
+                log.info("session is closed");
+            }
+
+            session.save(bahnhof);
         }
+        tx.commit();
 
         ///////////////////////////////////////////////////
         /// Benutzer                                    ///
@@ -258,50 +258,54 @@ public class Main
                 {"Reiner", "Boles", "Reiner.Boles@spambog.de", "bcPzbPH5fAH", "9644 5521936685"}
         };
 
+        session = getSessionFactory().getCurrentSession();
+        tx = session.beginTransaction();
+
         for(int i=0; i<benutzer_data.length; i++){
             String[] b_data = benutzer_data[i];
             Benutzer benutzer = new Benutzer();
-            benutzer.setID((long)i);
             benutzer.setVorName(b_data[0]);
             benutzer.setNachName(b_data[1]);
             benutzer.seteMail(b_data[2]);
             benutzer.setPasswort(b_data[3]);
             benutzer.setSmsNummer(b_data[4]);
 
-            em.persist(benutzer);
+            session.save(benutzer);
         }
+        tx.commit();
 
         ///////////////////////////////////////////////////
         /// Zug                                         ///
         ///////////////////////////////////////////////////
-        long zugId=0L;
+
+        session = getSessionFactory().getCurrentSession();
+        tx = session.beginTransaction();
+
         Zug zug = new Zug();
-        zug.setID(zugId++);
         zug.setStartZeit(new Date(2014, 4, 23, 8, 50));
         zug.setStart(bahnhofs1[0]);
         zug.setEnde(bahnhofs1[7]);
-        em.persist(zug);
+        session.save(zug);
 
         zug = new Zug();
-        zug.setID(zugId++);
         zug.setStartZeit(new Date(2013, 5, 23, 9, 50));
         zug.setStart(bahnhofs1[7]);
         zug.setEnde(bahnhofs1[0]);
-        em.persist(zug);
+        session.save(zug);
 
         zug = new Zug();
-        zug.setID(zugId++);
         zug.setStartZeit(new Date(2012, 6, 23, 10, 50));
         zug.setStart(bahnhofs1[0]);
         zug.setEnde(bahnhofs1[7]);
-        em.persist(zug);
+        session.save(zug);
 
         zug = new Zug();
-        zug.setID(zugId++);
         zug.setStartZeit(new Date(2011, 7, 23, 11, 50));
         zug.setStart(bahnhofs1[7]);
         zug.setEnde(bahnhofs1[0]);
-        em.persist(zug);
+        session.save(zug);
+
+        tx.commit();
     }
 
     public static void task01() throws ParseException, InterruptedException 
