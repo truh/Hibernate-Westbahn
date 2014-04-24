@@ -7,8 +7,15 @@ import javax.persistence.Inheritance;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * Zeitkarte Entity
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
 @Entity
-@Inheritance()
+@Inheritance
 public class Zeitkarte extends Ticket 
 {
 	@NotNull

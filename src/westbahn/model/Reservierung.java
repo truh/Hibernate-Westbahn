@@ -7,26 +7,27 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Reservierung Entity
+ * 
+ * @author Jakob Klepp
+ * @author Andreas Willinger
+ * @version 20140424
+ */
 @Entity
-public class Reservierung {
-
-    public Reservierung() {
-
-    }
+public class Reservierung 
+{
+    public Reservierung() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 
 	private Date datum;
-
 	private int praemienMeilenBonus = 15;
-
 	private int preis = 150;
-
 	private StatusInfo status;
 	
 	@OneToOne(optional = false)

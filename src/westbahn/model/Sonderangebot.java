@@ -6,6 +6,13 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Sonderangebot Entity
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
 @Entity
 public class Sonderangebot 
 {
@@ -20,7 +27,6 @@ public class Sonderangebot
 	private Date startZeit;
 
 	private int dauer = 12;
-
 	private float preisNachlass = 0.5f;
 
 	@OneToMany

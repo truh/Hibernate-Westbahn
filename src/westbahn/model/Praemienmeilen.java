@@ -1,15 +1,18 @@
 package westbahn.model;
 
-public class Praemienmeilen implements Zahlung {
-
-
+/**
+ * Praemienmeilen "Entity"
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
+public class Praemienmeilen implements Zahlung 
+{
 	/**
 	 * @see Zahlung#zahlungDurchfuehren()
 	 * 
 	 *  
 	 */
-	public void zahlungDurchfuehren() {
-
-	}
-
+	public void zahlungDurchfuehren() {}
 }
