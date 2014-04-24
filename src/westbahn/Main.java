@@ -36,6 +36,7 @@ public class Main
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
     private static SessionFactory sessionFactory;
+    private static Validator validator;
 
     public static SessionFactory getSessionFactory() 
     {
@@ -55,7 +56,8 @@ public class Main
         {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-            
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        	validator = factory.getValidator();
         }
         catch (Exception ex)
         {
@@ -321,8 +323,7 @@ public class Main
 
     public static void task01() throws ParseException, InterruptedException 
     {
-    	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    	Validator validator = factory.getValidator();
+    	
     	
     	Benutzer b1 = new Benutzer();
     	Benutzer b2 = new Benutzer();
@@ -341,14 +342,14 @@ public class Main
     	
     	s.setDauer(10);
     	s.setKontingent(1500);
-    	s.setStartZeit(new Date(0,0,0,0,0));
     	s.setPreisNachlass(15.2f);
+    	s.setStartZeit(new Date(new Date().getTime()+10000000));
 
-    	b1.seteMail("stuff@stuff");
+    	b1.seteMail("jklepp@student.tgm.ac.at");
     	b1.setVorName("jakob");
     	b1.setNachName("Klepp");
     	b1.setVerbuchtePraemienMeilen(1337L);
-    	b2.seteMail("hell");
+    	b2.seteMail("hell@nothing.uu");
     	b2.setVorName("Peter");
     	b2.setNachName("Silie");
     	b2.setVerbuchtePraemienMeilen(9192949299299L);
@@ -368,6 +369,7 @@ public class Main
     	t1.setZahlung(k1);
     	t1.setStrecke(s1);
     	t1.setTyp(ZeitkartenTyp.MONATSKARTE);
+    	t1.setGueltigAb(new Date());
     	
     	t2.setZahlung(k1);
     	t2.setStrecke(s1);
@@ -399,14 +401,14 @@ public class Main
     	r1.setBenutzer(b2);
     	s.setTickets(ar);
     	
-    	Set<ConstraintViolation<Benutzer>> viol = validator.validate(b1);
-    	Iterator it  = viol.iterator();
-    	
-    	while(it.hasNext())
-    	{
-    		ConstraintViolation<Benutzer> v = (ConstraintViolation<Benutzer>)it.next();
-    		System.err.println("VIOLATION: "+v.getMessage());
-    	}
+    	doValidation(bb1);
+    	doValidation(bb2);
+    	doValidation(s1);
+    	doValidation(s2);
+    	doValidation(z);
+    	doValidation(s);
+    	doValidation(b1);
+    	doValidation(b2);
     	
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
@@ -487,8 +489,8 @@ public class Main
     	try
     	{
 	    	Query query = session.getNamedQuery("getConnectionWithoutReservations")
-	        		.setInteger("start", 2)
-	        		.setInteger("ende", 1);
+	        		.setInteger("start", 1)
+	        		.setInteger("ende", 2);
 	    	
 	    	List<Ticket> tickets = (List<Ticket>)query.list();
 	    	Iterator it = tickets.iterator();
@@ -518,6 +520,15 @@ public class Main
     
     public static void doValidation (Object t) throws ValidationException
     {
+    	Set<ConstraintViolation<Object>> viol = validator.validate(t);
+    	Iterator it  = viol.iterator();
     	
+    	while(it.hasNext())
+    	{
+    		ConstraintViolation<Object> v = (ConstraintViolation<Object>)it.next();
+    		System.err.println("VIOLATION in "+t.getClass()+" bei: "+v.getInvalidValue()+" | "+v.getMessage());
+    		
+    		System.exit(1);
+    	}
     }
 }
