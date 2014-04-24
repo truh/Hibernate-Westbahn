@@ -23,6 +23,8 @@
         <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <!-- Drop and re-create the database schema on startup -->
         <property name="hibernate.hbm2ddl.auto">create</property>
+        
+        <property name="javax.persistence.validation.mode">auto</property>
 
         <!-- Names the annotated entity class -->
         <mapping class="westbahn.model.Bahnhof"/>

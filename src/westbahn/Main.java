@@ -15,18 +15,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 public class Main
 {
-
     private static final Logger log = Logger.getLogger(Main.class);
-
+    
     static SimpleDateFormat dateForm = new SimpleDateFormat("dd.MM.yyyy");
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
-
+    
     private static SessionFactory sessionFactory;
-    private static Validator validator;
-
+    //private static Validator validator;
+    
     public static SessionFactory getSessionFactory() 
     {
         return sessionFactory;
@@ -45,8 +43,8 @@ public class Main
         {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        	validator = factory.getValidator();
+            //ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        	//validator = factory.getValidator();
         }
         catch (Exception ex)
         {
@@ -61,7 +59,7 @@ public class Main
         
         try {
             log.info("Starting \"Filling the DB with testdata!\"");
-            Inserts.fillDB();
+            //Inserts.fillDB();
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
             log.info("Starting \"Working with JPA-QL and the Hibernate Criteria API\" (task2)");
@@ -77,8 +75,6 @@ public class Main
 
     public static void task01() throws ParseException, InterruptedException 
     {
-    	
-    	
     	Benutzer b1 = new Benutzer();
     	Benutzer b2 = new Benutzer();
     	Zeitkarte t1 = new Zeitkarte();
@@ -103,7 +99,7 @@ public class Main
     	b1.setVorName("jakob");
     	b1.setNachName("Klepp");
     	b1.setVerbuchtePraemienMeilen(1337L);
-    	b2.seteMail("hell@nothing.uu");
+    	b2.seteMail("hell@nothin");
     	b2.setVorName("Peter");
     	b2.setNachName("Silie");
     	b2.setVerbuchtePraemienMeilen(9192949299299L);
@@ -155,14 +151,14 @@ public class Main
     	r1.setBenutzer(b2);
     	s.setTickets(ar);
     	
-    	doValidation(bb1);
+    	/*doValidation(bb1);
     	doValidation(bb2);
     	doValidation(s1);
     	doValidation(s2);
     	doValidation(z);
     	doValidation(s);
     	doValidation(b1);
-    	doValidation(b2);
+    	doValidation(b2);*/
     	
         Session session = getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
@@ -244,7 +240,7 @@ public class Main
     	{
 	    	Query query = session.getNamedQuery("getConnectionWithoutReservations")
 	        		.setInteger("start", 1)
-	        		.setInteger("ende", 2);
+	        		.setInteger("ende", 1);
 	    	
 	    	List<Ticket> tickets = (List<Ticket>)query.list();
 	    	Iterator it = tickets.iterator();
@@ -272,6 +268,7 @@ public class Main
     	}
     }
     
+    /*
     public static void doValidation (Object t) throws ValidationException
     {
     	Set<ConstraintViolation<Object>> viol = validator.validate(t);
@@ -284,5 +281,5 @@ public class Main
     		
     		System.exit(1);
     	}
-    }
+    }*/
 }
