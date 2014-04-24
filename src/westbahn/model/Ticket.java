@@ -18,7 +18,7 @@ public abstract class Ticket
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected Long ID;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	protected Strecke strecke;
 	
 	@Transient

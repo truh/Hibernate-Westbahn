@@ -1,6 +1,8 @@
 package westbahn.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import java.util.Date;
 
@@ -14,6 +16,7 @@ import westbahn.BahnhofValidator;
 public class Zug 
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
 
 	@NotNull

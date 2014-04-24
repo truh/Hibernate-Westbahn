@@ -3,6 +3,8 @@ package westbahn.model;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -18,6 +20,7 @@ public class Reservierung {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 
 	private Date datum;
@@ -31,7 +34,7 @@ public class Reservierung {
 	@OneToOne(optional = false)
 	private Zug zug;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
 	private Strecke strecke;
 
     @ManyToOne
