@@ -96,7 +96,7 @@ Aufgaben
 1 Mapping
 ---------
 
-(10Pkt)
+(8Pkt)
 
 Schreiben Sie für alle oben definierten Klassen und Relationen entsprechende
 Hibernate JPA Implementierungen (javax.persistence.*). Bis auf die Klasse
@@ -118,6 +118,20 @@ Parameter akzeptieren und die gewünschten Typen zurückliefern:
 2. Liste alle Benutzer auf, die eine Monatskarte besitzen.
 3. Liste alle Tickets für eine bestimmte Strecke aus (durch Anfangs- und
    Endbahnhof definiert), wo keine Reservierungen durchgeführt wurden.
+
+-------------
+3 Validierung
+-------------
+
+(2Pkt)
+
+Alle Constraints der einzelnen Entitäten sollen verifiziert werden. Hierfür soll die Bean Validation API verwendet werden. Folgende Einschränkungen sollen überprüft werden:
+
+a) Zug und Strecke können nicht denselben Start- und Endbahnhof besitzen.
+b) Die eMail des Benutzers soll ein gängiges eMail-Pattern befolgen (http://www.w3.org/TR/2012/CR-html5-20121217/forms.html#valid-e-mail-address).
+c) Die Startzeit eines Sonderangebotes kann nicht in der Vergangenheit liegen.
+d) Der Name eines Bahnhofs darf nicht kürzer als zwei und nicht länger als 150 Zeichen sein. Sonderzeichen sind bis auf den Bindestrich zu unterbinden.
+
 
 ==============================
 Datenbank und Benutzer anlegen
