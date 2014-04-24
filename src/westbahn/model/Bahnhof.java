@@ -26,7 +26,7 @@ public class Bahnhof {
 
 	private int absZeitEntfernung;
 
-	private boolean kopfBahnhof;
+	private boolean kopfBahnhof = false;
 
     public Long getID() {
         return ID;

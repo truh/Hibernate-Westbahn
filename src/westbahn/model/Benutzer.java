@@ -10,8 +10,8 @@ import java.util.Collection;
                 query = "FROM Benutzer WHERE eMail = :emailAddress"),
         @NamedQuery(name = "getPassengersWithMonthlyPass",
                 query = "SELECT DISTINCT b FROM Benutzer b " +
-                        "INNER JOIN Zeitkarte z " +
-                        "WHERE z.typ = 'MONATSKARTE'")
+                        "INNER JOIN Zeitkarte " +
+                        "WHERE Zeitkarte.typ = 'MONATSKARTE'")
 })
 @Entity
 public class Benutzer {
