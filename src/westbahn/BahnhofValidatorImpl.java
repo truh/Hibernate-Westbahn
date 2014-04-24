@@ -7,6 +7,12 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import westbahn.model.Bahnhof;
 
+/**
+ * This class checks whether or not the first trainstation is the same as the second one.
+ * 
+ * @author Andreas Willinger
+ * @version 20140424
+ */
 public class BahnhofValidatorImpl implements ConstraintValidator<BahnhofValidator, Object> 
 {
 	private String bahnhof1;
@@ -15,7 +21,7 @@ public class BahnhofValidatorImpl implements ConstraintValidator<BahnhofValidato
 	public void initialize(BahnhofValidator constraintAnnotation) 
 	{
 		this.bahnhof1 = constraintAnnotation.bahnhof1();
-		this.bahnhof2= constraintAnnotation.bahnhof2();
+		this.bahnhof2 = constraintAnnotation.bahnhof2();
 	}
 
 	public boolean isValid(Object value, ConstraintValidatorContext context) 
