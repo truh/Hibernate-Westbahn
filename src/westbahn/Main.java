@@ -10,10 +10,12 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import westbahn.model.*;
 import westbahn.query.Inserts;
 
-import javax.validation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The entry point of the application.
@@ -230,7 +232,7 @@ public class Main
     	try
     	{
 	    	Query query = session.getNamedQuery("getAllReservations")
-	        		.setString("emailAddress", "hell");
+	        		.setString("emailAddress", "hell@nothin");
 	    	
 	    	List<Reservierung> tickets = (List<Reservierung>)query.list();
 	    	Iterator it = tickets.iterator();
@@ -299,9 +301,9 @@ public class Main
     	try
     	{
 	    	Query query = session.getNamedQuery("getConnectionWithoutReservations")
-	        		.setInteger("start", 1)
-	        		.setInteger("ende", 1);
-	    	
+	        		.setInteger("start", 9)
+	        		.setInteger("ende", 9);
+
 	    	List<Ticket> tickets = (List<Ticket>)query.list();
 	    	Iterator it = tickets.iterator();
 	    	
