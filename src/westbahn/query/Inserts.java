@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import westbahn.Main;
 import westbahn.model.Bahnhof;
 import westbahn.model.Benutzer;
+import westbahn.model.Strecke;
 import westbahn.model.Zug;
 
 import java.io.Serializable;
@@ -148,7 +149,7 @@ public class Inserts {
                 {"Stefanie", "Alfaro", "Stefanie.Alfaro@t-online.de", "cJhyiFlsKAC", "8160 2975678521"},
                 {"Muench", "Amaral", "Muench.Amaral@outlook.com", "qaJWj3i7UA8", "8011 8064414216"},
                 {"Abelard", "Boatwright", "Abelard.Boatwright@mail.google.com", "hpw1yZnwSAi", "4313 9075530786"},
-                {"", "Aiello", ".Aiello@gmail.com", "4WKIZBE7AA1", "3788 2889077756"},
+                {"Huterstein", "Aiello", "Huterstein.Aiello@gmail.com", "4WKIZBE7AA1", "3788 2889077756"},
                 {"Marilette", "Beverly", "Marilette.Beverly@mail.google.com", "6uIFjNbUgAR", "7605 743951833"},
                 {"Kisyma", "Berg", "Kisyma.Berg@mailbox.org", "mlSAYdavOAG", "3574 2269502356"},
                 {"Magdalene", "Baird", "Magdalene.Baird@gmail.com", "BMhxd/sdDQAF", "2577 9318326859"},
@@ -221,29 +222,61 @@ public class Inserts {
         session = Main.getSessionFactory().getCurrentSession();
         tx = session.beginTransaction();
 
-        Zug zug = new Zug();
-        zug.setStartZeit(new Date(2014, 4, 23, 8, 50));
-        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
-        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
-        session.save(zug);
+        Zug zug0 = new Zug();
+        zug0.setStartZeit(new Date(2014, 4, 23, 8, 50));
+        zug0.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        zug0.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        session.save(zug0);
 
-        zug = new Zug();
-        zug.setStartZeit(new Date(2013, 5, 23, 9, 50));
-        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
-        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
-        session.save(zug);
+        Zug zug1 = new Zug();
+        zug1.setStartZeit(new Date(2013, 5, 23, 9, 50));
+        zug1.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        zug1.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        session.save(zug1);
 
-        zug = new Zug();
-        zug.setStartZeit(new Date(2012, 6, 23, 10, 50));
-        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
-        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
-        session.save(zug);
+        Zug zug2 = new Zug();
+        zug2.setStartZeit(new Date(2012, 6, 23, 10, 50));
+        zug2.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        zug2.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        session.save(zug2);
 
-        zug = new Zug();
-        zug.setStartZeit(new Date(2011, 7, 23, 11, 50));
-        zug.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
-        zug.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
-        session.save(zug);
+        Zug zug3 = new Zug();
+        zug3.setStartZeit(new Date(2011, 7, 23, 11, 50));
+        zug3.setStart((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]));
+        zug3.setEnde((Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]));
+        session.save(zug3);
+
+        tx.commit();
+
+        ///////////////////////////////////////////////////
+        /// Strecke                                     ///
+        ///////////////////////////////////////////////////
+
+        session = Main.getSessionFactory().getCurrentSession();
+        tx = session.beginTransaction();
+
+        Bahnhof[][] bahnhof_verbindungs = new Bahnhof[][]{
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[1]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[6])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[2]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[5])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[3]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[4])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[4]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[3])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[5]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[2])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[6]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[1])},
+                {(Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[7]), (Bahnhof)session.load(Bahnhof.class, bahnhofs_ids[0])},
+        };
+
+        Strecke[] streckes = new Strecke[bahnhof_verbindungs.length];
+
+        for(int i=0; i<bahnhof_verbindungs.length; i++) {
+            Bahnhof[] bahnhof_verbindung = bahnhof_verbindungs[i];
+
+            streckes[i] = new Strecke();
+            streckes[i].setStart(bahnhof_verbindung[0]);
+            streckes[i].setEnde(bahnhof_verbindung[1]);
+
+            session.save(streckes[i]);
+        }
 
         tx.commit();
     }
