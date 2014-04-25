@@ -15,6 +15,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * The entry point of the application.
+ * It starts all the Tasks specified in the Assignments and fills the DB with sample data.
+ * 
+ * @author Jakob Klepp
+ * @author Andreas Willinger
+ * @version 20140424
+ */
 public class Main
 {
     private static final Logger log = Logger.getLogger(Main.class);
@@ -23,6 +31,9 @@ public class Main
     static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
     
     private static SessionFactory sessionFactory;
+    // manual validation, uncomment all lines marked with "uncomment #n"
+    // if the auto-validation doesn't work
+    // uncomment #1
     //private static Validator validator;
     
     public static SessionFactory getSessionFactory() 
@@ -43,12 +54,15 @@ public class Main
         {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            
+            // uncomment #2
             //ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         	//validator = factory.getValidator();
         }
         catch (Exception ex)
         {
-            System.out.println("Verbindung zum Datenbank-Server gescheitert: "+ex.getMessage());
+            log.error("Verbindung zum Datenbank-Server gescheitert: "+ex.getMessage());
+            System.exit(1);
         }
         
         if(sessionFactory == null)
@@ -57,22 +71,40 @@ public class Main
         	System.exit(1);
         }
         
-        try {
+        try 
+        {
             log.info("Starting \"Filling the DB with testdata!\"");
-            //Inserts.fillDB();
+            Inserts.fillDB();
             log.info("Starting \"Mapping Perstistent Classes and Associations\" (task1)");
             task01();
             log.info("Starting \"Working with JPA-QL and the Hibernate Criteria API\" (task2)");
             task02a();
             task02b();
             task02c();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } 
+        catch (ParseException e) 
+        {
+            log.error("Parse-Fehler weahrend der Ausfuehrung des Programmes: "+e.getMessage());
+            System.exit(1);
+        } 
+        catch (Exception e) 
+        {
+            log.error("Allgemeienr Fehler: "+e.getMessage());
+            System.exit(1);
         }
     }
-
+    
+    /**
+     * Executes Task #1 of the Assignment:
+     * 
+     * Creates several users, tracks and tickets, then saves them to the database.
+     * Also includes some Errors to test the Validation API.
+     * 
+     * You might want to "fix" those Error if you just want to use the Application.
+     * 
+     * @throws ParseException
+     * @throws InterruptedException
+     */
     public static void task01() throws ParseException, InterruptedException 
     {
     	Benutzer b1 = new Benutzer();
@@ -99,6 +131,8 @@ public class Main
     	b1.setVorName("jakob");
     	b1.setNachName("Klepp");
     	b1.setVerbuchtePraemienMeilen(1337L);
+    	
+    	// this should throw an error
     	b2.seteMail("hell@nothin");
     	b2.setVorName("Peter");
     	b2.setNachName("Silie");
@@ -151,6 +185,7 @@ public class Main
     	r1.setBenutzer(b2);
     	s.setTickets(ar);
     	
+    	// uncomment #3
     	/*doValidation(bb1);
     	doValidation(bb2);
     	doValidation(s1);
@@ -178,7 +213,15 @@ public class Main
         
         tx.commit(); 
     }
-
+    
+    /**
+     * Executes Task #2a of the Assignment:
+     * 
+     * Looks up all Reservations from a user specified by their eMail-Address.
+     * Then directly prints them out to STDOUT.
+     * 
+     * @throws ParseException
+     */
     public static void task02a() throws ParseException
     {
     	Session session = getSessionFactory().getCurrentSession();
@@ -191,6 +234,7 @@ public class Main
 	    	
 	    	List<Reservierung> tickets = (List<Reservierung>)query.list();
 	    	Iterator it = tickets.iterator();
+	    	
 	    	while(it.hasNext())
 	    	{
 	    		Object[] t = (Object[])it.next();
@@ -204,7 +248,15 @@ public class Main
     		session.getTransaction().commit();
     	}
     }
-
+    
+    /**
+     * Executes Task #2b of the Assignment:
+     * 
+     * Looks up all users which have got a monthly-ticket, and prints out all
+     * data associated with them.
+     * 
+     * @throws ParseException
+     */
     public static void task02b() throws ParseException 
     {
     	Session session = getSessionFactory().getCurrentSession();
@@ -215,8 +267,8 @@ public class Main
 	    	Query query = session.getNamedQuery("getPassengersWithMonthlyPass");
 	    	
 	    	List<Benutzer> tickets = (List<Benutzer>)query.list();
-	    	
 	    	Iterator it = tickets.iterator();
+	    	
 	    	while(it.hasNext())
 	    	{
 	    		Object[] t = (Object[])it.next();
@@ -230,7 +282,15 @@ public class Main
     		session.getTransaction().commit();
     	}
     }
-
+    
+    /**
+     * Executes Task #2c of the Assignment:
+     * 
+     * Looks up all tracks where there are no reservations set on, defined by the
+     * start and end trainstation.
+     * 
+     * @throws ParseException
+     */
     public static void task02c() throws ParseException 
     {
     	Session session = getSessionFactory().getCurrentSession();
@@ -244,6 +304,7 @@ public class Main
 	    	
 	    	List<Ticket> tickets = (List<Ticket>)query.list();
 	    	Iterator it = tickets.iterator();
+	    	
 	    	while(it.hasNext())
 	    	{
 	    		Object[] t = (Object[])it.next();
@@ -268,6 +329,7 @@ public class Main
     	}
     }
     
+    // uncomment #4
     /*
     public static void doValidation (Object t) throws ValidationException
     {

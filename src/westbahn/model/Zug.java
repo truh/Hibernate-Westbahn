@@ -8,9 +8,16 @@ import westbahn.BahnhofValidator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
+/**
+ * Zug Entity
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
 @Entity
+// start trainstation != end transtation
 @BahnhofValidator(bahnhof1 = "start", bahnhof2 = "ende")
 public class Zug 
 {
@@ -22,9 +29,7 @@ public class Zug
 	private Date startZeit;
 
 	private int sitzPlaetze = 500;
-
 	private int fahrradStellplaetze = 50;
-
 	private int rollStuhlPlaetze = 10;
 	
 	@ManyToOne(optional = false)
@@ -33,64 +38,75 @@ public class Zug
 	@ManyToOne(optional = false)
 	private Bahnhof ende;
 	
-	public Zug()
-	{
-		
-	}
+	public Zug() {}
 
-	public Long getID() {
+	public Long getID() 
+	{
 		return ID;
 	}
 
-	public void setID(Long iD) {
+	public void setID(Long iD) 
+	{
 		ID = iD;
 	}
 
-	public Date getStartZeit() {
+	public Date getStartZeit() 
+	{
 		return startZeit;
 	}
 
-	public void setStartZeit(Date startZeit) {
+	public void setStartZeit(Date startZeit) 
+	{
 		this.startZeit = startZeit;
 	}
 
-	public int getSitzPlaetze() {
+	public int getSitzPlaetze() 
+	{
 		return sitzPlaetze;
 	}
 
-	public void setSitzPlaetze(int sitzPlaetze) {
+	public void setSitzPlaetze(int sitzPlaetze) 
+	{
 		this.sitzPlaetze = sitzPlaetze;
 	}
 
-	public int getFahrradStellplaetze() {
+	public int getFahrradStellplaetze() 
+	{
 		return fahrradStellplaetze;
 	}
 
-	public void setFahrradStellplaetze(int fahrradStellplaetze) {
+	public void setFahrradStellplaetze(int fahrradStellplaetze) 
+	{
 		this.fahrradStellplaetze = fahrradStellplaetze;
 	}
 
-	public int getRollStuhlPlaetze() {
+	public int getRollStuhlPlaetze() 
+	{
 		return rollStuhlPlaetze;
 	}
 
-	public void setRollStuhlPlaetze(int rollStuhlPlaetze) {
+	public void setRollStuhlPlaetze(int rollStuhlPlaetze) 
+	{
 		this.rollStuhlPlaetze = rollStuhlPlaetze;
 	}
 
-	public Bahnhof getStart() {
+	public Bahnhof getStart() 
+	{
 		return start;
 	}
 
-	public void setStart(Bahnhof start) {
+	public void setStart(Bahnhof start) 
+	{
 		this.start = start;
 	}
 
-	public Bahnhof getEnde() {
+	public Bahnhof getEnde()
+	{
 		return ende;
 	}
 
-	public void setEnde(Bahnhof ende) {
+	public void setEnde(Bahnhof ende) 
+	{
 		this.ende = ende;
 	}
 }

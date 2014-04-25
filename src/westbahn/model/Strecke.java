@@ -6,7 +6,15 @@ import javax.persistence.*;
 
 import westbahn.BahnhofValidator;
 
+/**
+ * Strecke Entity
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
 @Entity
+// start trainstation != end trainstation
 @BahnhofValidator(bahnhof1 = "start", bahnhof2 = "ende")
 public class Strecke 
 {

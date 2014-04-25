@@ -2,6 +2,13 @@ package westbahn.model;
 
 import javax.persistence.*;
 
+/**
+ * Abstract Ticket Entity
+ * 
+ * @author Andreas Willinger
+ * @author Jakob Klepp
+ * @version 20140424
+ */
 @NamedQueries(
        @NamedQuery(name = "getConnectionWithoutReservations",
                 query = "FROM Ticket t " +

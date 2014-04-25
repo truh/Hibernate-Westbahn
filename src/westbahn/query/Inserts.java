@@ -12,10 +12,18 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 
-public class Inserts {
-
-    public static void fillDB() throws ParseException {
-
+/**
+ * This class is used for filling the DB with some default data, so we
+ * can work with it.
+ * 
+ * @author Jakob Klepp
+ * @author Andreas Willinger
+ * @version 20140424
+ */
+public class Inserts 
+{
+    public static void fillDB() throws ParseException 
+    {
         Session session = Main.getSessionFactory().getCurrentSession();
         Transaction tx = session.beginTransaction();
 

@@ -1,15 +1,19 @@
 package westbahn.model;
 
 import javax.persistence.*;
-
 import javax.validation.constraints.*;
 
+/**
+ * Bahnhof Entity
+ * 
+ * @author Jakob Klepp
+ * @author Andreas Willinger
+ * @version 20140424
+ */
 @Entity
-public class Bahnhof {
-
-    public Bahnhof() {
-
-    }
+public class Bahnhof 
+{
+    public Bahnhof() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,63 +24,72 @@ public class Bahnhof {
 	private String name;
 
 	private int absPreisEntfernung;
-
 	private int absKmEntfernung;
-
 	private int absZeitEntfernung;
-
 	private boolean kopfBahnhof = false;
 
-    public Long getID() {
+    public Long getID() 
+    {
         return ID;
     }
 
-    public void setID(Long ID) {
+    public void setID(Long ID) 
+    {
         this.ID = ID;
     }
 
-    public String getName() {
+    public String getName() 
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) 
+    {
         this.name = name;
     }
 
-    public int getAbsPreisEntfernung() {
+    public int getAbsPreisEntfernung() 
+    {
         return absPreisEntfernung;
     }
 
-    public void setAbsPreisEntfernung(int absPreisEntfernung) {
+    public void setAbsPreisEntfernung(int absPreisEntfernung) 
+    {
         this.absPreisEntfernung = absPreisEntfernung;
     }
 
-    public int getAbsKmEntfernung() {
+    public int getAbsKmEntfernung() 
+    {
         return absKmEntfernung;
     }
 
-    public void setAbsKmEntfernung(int absKmEntfernung) {
+    public void setAbsKmEntfernung(int absKmEntfernung) 
+    {
         this.absKmEntfernung = absKmEntfernung;
     }
 
-    public int getAbsZeitEntfernung() {
+    public int getAbsZeitEntfernung() 
+    {
         return absZeitEntfernung;
     }
 
-    public void setAbsZeitEntfernung(int absZeitEntfernung) {
+    public void setAbsZeitEntfernung(int absZeitEntfernung) 
+    {
         this.absZeitEntfernung = absZeitEntfernung;
     }
 
-    public boolean isKopfBahnhof() {
+    public boolean isKopfBahnhof() 
+    {
         return kopfBahnhof;
     }
 
-    public void setKopfBahnhof(boolean kopfBahnhof) {
+    public void setKopfBahnhof(boolean kopfBahnhof) 
+    {
         this.kopfBahnhof = kopfBahnhof;
     }
 
-    public Long getGesamtPraemienMeilen() {
-        //TODO Do DO
+    public Long getGesamtPraemienMeilen() 
+    {
         return 0L;
     }
 }
